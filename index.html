@@ -52,6 +52,9 @@ h2{margin:0 0 14px;font-size:15px;letter-spacing:.08em;text-transform:uppercase;
 .tag{font-size:13.5px;padding:4px 10px;border-radius:7px;background:#f4f6f9;border:1px solid var(--line);color:#374151}
 .tag.hot{background:var(--accent-soft);border-color:#cfe0fb;color:#0b4aa8}
 
+.skill-groups{display:grid;gap:14px}
+.sg h3{margin:0 0 3px;font-size:14px;font-weight:700;color:#1f2937}
+.sg p{margin:0;font-size:14.5px;line-height:1.5;color:#4b5563}
 /* опыт */
 .job{padding:18px 0;border-bottom:1px solid var(--line)}
 .job:last-child{border-bottom:0}
@@ -99,7 +102,6 @@ a{color:var(--accent)}
         <div>Гражданство: Россия · разрешение на работу: Россия</div>
         <div>Готов работать удалённо, не готов к командировкам</div>
         <div>Самозанятость: есть · Медкнижка: есть</div>
-        <div>Занятость: полная · специализации: программист, разработчик</div>
       </div>
     </div>
   </section>
@@ -117,23 +119,13 @@ a{color:var(--accent)}
 
       <section class="card block">
         <h2>Навыки</h2>
-        <div class="tags">
-          <span class="tag hot">SQL</span>
-          <span class="tag hot">Java 17</span>
-          <span class="tag hot">Spring Boot</span>
-          <span class="tag hot">REST API</span>
-          <span class="tag hot">Telegram Bot API</span>
-          <span class="tag">JavaScript</span>
-          <span class="tag">Cloudflare Workers</span>
-          <span class="tag">вебхуки</span>
-          <span class="tag">PostgreSQL</span>
-          <span class="tag">Git</span>
-          <span class="tag">JUnit</span>
-          <span class="tag">Mockito</span>
-          <span class="tag">Postman</span>
-          <span class="tag">Jira</span>
-          <span class="tag">HTML/CSS</span>
-          <span class="tag">Битрикс24</span>
+        <div class="skill-groups">
+          <div class="sg"><h3>AI и автоматизация</h3><p>AI-интеграции, LLM API, автоматизация бизнес-процессов, интеграция сторонних сервисов</p></div>
+          <div class="sg"><h3>Интеграции и API</h3><p>REST API, Webhooks, JSON, HTTP, OAuth 2.0</p></div>
+          <div class="sg"><h3>Автоматизация и разработка</h3><p>Python, JavaScript, Telegram Bot API, Cloudflare Workers</p></div>
+          <div class="sg"><h3>Базы данных</h3><p>SQL, PostgreSQL</p></div>
+          <div class="sg"><h3>CRM и бизнес-системы</h3><p>Битрикс24, интеграция CRM с внешними сервисами</p></div>
+          <div class="sg"><h3>Технические инструменты</h3><p>Git, Postman, отладка API, тестирование интеграций, анализ логов</p></div>
         </div>
       </section>
 
