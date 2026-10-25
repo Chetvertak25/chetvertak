@@ -1,0 +1,51 @@
+name: pages-https
+
+# Автоматически включает HTTPS на GitHub Pages, как только выпущен сертификат.
+# Проверяет каждые 15 минут и по кнопке Run workflow.
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  pages: write
+  contents: read
+
+jobs:
+  enforce-https:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Включить HTTPS, если сертификат готов
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -u
+          API="https://api.github.com/repos/$REPO/pages"
+          H1="Authorization: Bearer $GH_TOKEN"
+          H2="Accept: application/vnd.github+json"
+
+          echo "Проверяю состояние Pages…"
+          info=$(curl -s -H "$H1" -H "$H2" "$API")
+          echo "$info" | tr ',' '\n' | grep -E '"(status|https_enforced|state)"' || true
+
+          enforced=$(echo "$info" | tr ',' '\n' | grep '"https_enforced"' | head -1 | awk '{print $2}' | tr -d ' ')
+          echo "https_enforced=$enforced"
+          if [ "$enforced" = "true" ]; then
+            echo "HTTPS уже включён — делать нечего."
+            exit 0
+          fi
+
+          echo "Пробую включить HTTPS…"
+          code=$(curl -s -o /tmp/body -w "%{http_code}" -X PUT \
+            -H "$H1" -H "$H2" -H "Content-Type: application/json" \
+            -d '{"https_enforced":true}' "$API")
+          echo "HTTP $code"
+          head -c 400 /tmp/body || true
+
+          if [ "$code" = "204" ] || [ "$code" = "200" ]; then
+            echo "Готово: HTTPS включён."
+          else
+            echo "Сертификат ещё не выдан — повторю через 15 минут."
+          fi
