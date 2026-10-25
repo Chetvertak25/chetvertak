@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Хардфит — доступ по QR</title>
+<link rel="stylesheet" href="case.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="top">
+    <div class="brand">
+      <svg width="42" height="42" viewBox="0 0 42 42" aria-label="Хардфит">
+        <rect width="42" height="42" rx="9" fill="#121212"/>
+        <rect x="12" y="9" width="4.6" height="24" fill="#f3f3f0"/>
+        <rect x="25.4" y="9" width="4.6" height="24" fill="#f3f3f0"/>
+        <rect x="16.6" y="18.6" width="8.8" height="4.8" fill="#ff4d00"/>
+        <rect x="7" y="14.5" width="2.6" height="13" fill="#ff4d00"/>
+        <rect x="32.4" y="14.5" width="2.6" height="13" fill="#ff4d00"/>
+      </svg>
+      <div class="wordmark">хард<i>фит</i></div>
+    </div>
+    <div class="meta">Кейс 06 · доступ по QR<br>4 недели</div>
+  </div>
+
+  <h1>Турникет <span>вместо</span> стойки</h1>
+  <p class="deck">Клиент регистрируется в приложении, получает цифровой пропуск и проходит по QR. Решение об открытии принимает сервер, а не сканер.</p>
+
+  <div class="spec">
+    <div><b>1,2 с</b><span>проход</span></div>
+    <div><b>0</b><span>ручных проверок</span></div>
+    <div><b>6</b><span>сценариев отказа</span></div>
+    <div><b>24/7</b><span>без смены</span></div>
+  </div>
+
+  <h2>Как это выглядит</h2>
+  <div class="screens">
+    <figure><img src="img/app-pass.png" alt="Экран приложения с QR-пропуском"><figcaption>Пропуск в приложении</figcaption></figure>
+    <figure><img src="img/app-ok.png" alt="Экран «Проход открыт»"><figcaption>Проход разрешён</figcaption></figure>
+    <figure><img src="img/app-fail.png" alt="Экран отказа с причиной"><figcaption>Отказ с причиной</figcaption></figure>
+  </div>
+
+  <h2>Порядок прохода</h2>
+  <ol>
+    <li><div><b>Регистрация по телефону</b><p>Аккаунт привязывается к карточке клиента в клубе. Без карточки пропуск не выпускается.</p></div></li>
+    <li><div><b>Пропуск с коротким сроком</b><p>QR подписан и обновляется сам. Скриншот, отправленный другу, устаревает за минуты.</p></div></li>
+    <li><div><b>Скан на турникете</b><p>Сканер отправляет код на сервер. Проверяется подпись и срок, а не картинка.</p></div></li>
+    <li><div><b>Проверка абонемента</b><p>Срок, заморозка, лимит посещений, блокировка. Отказ приходит с причиной.</p></div></li>
+    <li><div><b>Открытие и запись</b><p>Событие в журнале: кто, когда, устройство, решение. Отказ пишется так же.</p></div></li>
+  </ol>
+
+  <h2>Что ломается</h2>
+  <table class="edge">
+    <tr><th>Случай</th><th>Решение</th></tr>
+    <tr><td>Пропуск переслали</td><td>Короткий срок жизни и автообновление кода</td></tr>
+    <tr><td>Истёк абонемент</td><td>Отказ с причиной и подсказкой, событие в журнале</td></tr>
+    <tr><td>Пропал интернет</td><td>Локальный список на турникете, события уходят позже</td></tr>
+    <tr><td>Двойной скан</td><td>Идемпотентность: второй проход не открывается</td></tr>
+  </table>
+
+  <div class="foot"><span>Хардфит · 2026</span></div>
+
+</div>
+</body>
+</html>
