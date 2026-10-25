@@ -1,0 +1,45 @@
+/* Читаемость кейсов: крупнее текст, контраст, блочная структура */
+.page{max-width:1060px}
+h1{font-size:clamp(34px,4.6vw,58px);line-height:1.05}
+.deck{font-size:clamp(17px,1.5vw,20px);line-height:1.62;color:#3c4046;max-width:62ch;margin-top:14px}
+.top .meta{font-size:11px}
+h2{font-size:14px;letter-spacing:.1em;margin:46px 0 18px}
+.rule{margin-bottom:26px}
+
+/* блоки шагов */
+ol{display:grid;gap:10px}
+ol li{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:18px 20px;background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:12px;border-bottom:1px solid rgba(0,0,0,.1)}
+ol li::before{font-size:14px;padding-top:2px;color:#b45309}
+ol li b{font-size:18px;line-height:1.35;margin-bottom:5px}
+ol li p{font-size:16.5px;line-height:1.6;color:#3c4046;max-width:70ch;margin:0}
+
+/* таблица отказов */
+table.edge{font-size:16px;border-collapse:separate;border-spacing:0}
+table.edge th{padding:10px 14px 10px 0;font-size:12px;color:#4b5563}
+table.edge td{padding:13px 16px 13px 0;line-height:1.5;color:#333;border-bottom:1px solid rgba(0,0,0,.12)}
+table.edge td:first-child{width:38%;font-weight:650;color:#15181d}
+
+/* скриншоты и подписи */
+.screens{gap:16px}
+.screens figcaption{font-size:12.5px;letter-spacing:.04em;color:#555;margin-top:8px}
+.screens img{box-shadow:0 18px 40px -24px rgba(0,0,0,.45)}
+
+/* цифры и карточки */
+.spec b{font-size:26px}
+.spec span{font-size:11px;letter-spacing:.06em;color:#4b5563}
+.spec div{padding:16px 18px 16px 0}
+.card p{font-size:16px;line-height:1.58;color:#3c4046}
+.card h3{font-size:16.5px}
+.step-row p{font-size:16.5px;line-height:1.58;color:#3c4046}
+.step-row h4{font-size:16.5px}
+.box span{font-size:13px;line-height:1.45}
+.mini{font-size:14.5px;line-height:1.55}
+.result{font-size:16px;line-height:1.55}
+.quote{font-size:17px;line-height:1.6}
+.foot{font-size:11px}
+@media(max-width:700px){
+  ol li{grid-template-columns:1fr;padding:16px;gap:6px}
+  .deck{font-size:16.5px}
+  table.edge{font-size:15px}
+  table.edge td:first-child{width:44%}
+}
