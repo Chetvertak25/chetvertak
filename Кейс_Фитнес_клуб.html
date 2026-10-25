@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кейс: пропуск в фитнес-клуб по QR — Данил</title>
+<meta name="description" content="Кейс: приложение с регистрацией и цифровым пропуском, турникет со сканером QR, автоматическая проверка абонемента. Ресепшен для прохода не нужен.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b0f16'/%3E%3Crect x='26' y='26' width='18' height='18' rx='3' fill='%237c6cff'/%3E%3Crect x='56' y='26' width='18' height='18' rx='3' fill='%2322d3ee'/%3E%3Crect x='26' y='56' width='18' height='18' rx='3' fill='%2322d3ee'/%3E%3Crect x='56' y='56' width='18' height='18' rx='3' fill='%237c6cff'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#080b10; --surface:#10161f; --line:rgba(255,255,255,.08); --line-2:rgba(255,255,255,.16);
+  --text:#e8eef7; --muted:#98a7bd; --dim:#6f7f96;
+  --accent:#7c6cff; --accent-2:#22d3ee; --warm:#ffd166; --ok:#3ddc97; --bad:#ff7a7a;
+  --r:20px; --font:"Inter","Segoe UI Variable Display","Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  --mono:"JetBrains Mono","Cascadia Code",Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.62 var(--font);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(900px 480px at 10% -6%,rgba(124,108,255,.20),transparent 60%),
+    radial-gradient(700px 420px at 92% 2%,rgba(34,211,238,.12),transparent 62%);}
+.wrap{width:min(1080px,calc(100% - 44px));margin:0 auto;position:relative;z-index:1}
+a{color:inherit}
+[id]{scroll-margin-top:86px}
+
+.nav{position:sticky;top:0;z-index:40;backdrop-filter:blur(14px) saturate(140%);background:rgba(8,11,16,.74);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:18px;height:62px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:640}
+.mark{width:28px;height:28px;border-radius:8px;background:linear-gradient(140deg,var(--accent),#5b4bd6 60%,var(--accent-2));flex:none}
+.nav a.back{font-size:14px;color:var(--muted);text-decoration:none;border:1px solid var(--line);padding:7px 13px;border-radius:9px;transition:.18s}
+.nav a.back:hover{background:rgba(255,255,255,.06);color:var(--text)}
+
+.hero{padding:64px 0 40px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.tag{font-size:12.5px;color:var(--muted);border:1px solid var(--line);border-radius:100px;padding:4px 11px;background:rgba(255,255,255,.03)}
+.tag.hi{color:#dcd6ff;border-color:rgba(124,108,255,.42);background:rgba(124,108,255,.13)}
+h1{font-size:clamp(29px,4.4vw,48px);line-height:1.1;letter-spacing:-.03em;margin:0;font-weight:680}
+h1 em{font-style:normal;background:linear-gradient(100deg,var(--accent) 10%,var(--accent-2) 75%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{margin:20px 0 0;color:var(--muted);max-width:62ch;font-size:clamp(16px,1.35vw,18.5px)}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:36px}
+@media(max-width:760px){.facts{grid-template-columns:repeat(2,1fr)}}
+.fact{background:#0c111a;padding:18px 20px}
+.fact b{display:block;font-size:20px;letter-spacing:-.02em;font-weight:640;margin-bottom:2px}
+.fact span{font-size:12.5px;color:var(--dim)}
+
+section{padding:44px 0}
+h2{font-size:clamp(21px,2.4vw,28px);letter-spacing:-.025em;margin:0 0 6px;font-weight:650}
+.sub{color:var(--dim);font-size:15px;margin:0 0 26px;max-width:60ch}
+.rule{height:1px;background:linear-gradient(90deg,var(--line-2),transparent);margin:0 0 30px}
+
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:820px){.grid3{grid-template-columns:1fr}}
+.card{border:1px solid var(--line);border-radius:16px;padding:20px;background:var(--surface)}
+.card h3{margin:0 0 7px;font-size:15.5px;font-weight:620;letter-spacing:-.01em}
+.card p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.55}
+.card .n{font-family:var(--mono);font-size:12px;color:var(--accent-2);display:block;margin-bottom:9px}
+
+/* поток */
+.flow{display:grid;gap:10px}
+.step-row{display:grid;grid-template-columns:56px 1fr;gap:16px;align-items:start;border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:var(--surface);position:relative}
+.step-row .num{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-family:var(--mono);font-size:13px;color:#0a0d12;font-weight:700;background:linear-gradient(135deg,var(--accent-2),#4fc8e0)}
+.step-row h4{margin:0 0 4px;font-size:15.5px;font-weight:620}
+.step-row p{margin:0;color:var(--muted);font-size:14.5px}
+.step-row .who{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:7px;display:block}
+
+/* схема */
+.diagram{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:center;margin-top:8px}
+@media(max-width:820px){.diagram{grid-template-columns:1fr;justify-items:stretch}.arrow{transform:rotate(90deg);justify-self:center}}
+.box{border:1px solid var(--line);border-radius:14px;padding:16px;background:#0d131c;text-align:center}
+.box b{display:block;font-size:14.5px;margin-bottom:4px}
+.box span{font-size:12.5px;color:var(--dim);line-height:1.4}
+.box.core{border-color:rgba(124,108,255,.4);background:rgba(124,108,255,.08);box-shadow:0 0 0 3px rgba(124,108,255,.06) inset}
+.arrow{font-size:20px;color:var(--accent-2);text-align:center}
+.diagram-notes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+@media(max-width:820px){.diagram-notes{grid-template-columns:1fr}}
+.mini{border:1px dashed var(--line-2);border-radius:12px;padding:13px 15px;font-size:13.5px;color:var(--muted)}
+.mini b{color:var(--text);font-weight:600}
+
+/* сделал */
+.cols2{columns:2;column-gap:34px}
+@media(max-width:820px){.cols2{columns:1}}
+ul.did{margin:0;padding:0;list-style:none;display:grid;gap:11px}
+ul.did li{position:relative;padding-left:22px;color:var(--muted);font-size:15px;line-height:1.55;break-inside:avoid}
+ul.did li::before{content:"";position:absolute;left:2px;top:.6em;width:7px;height:7px;border-radius:2px;transform:rotate(45deg);background:linear-gradient(135deg,var(--accent),var(--accent-2))}
+
+/* крайние случаи */
+.edge{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(max-width:820px){.edge{grid-template-columns:1fr}}
+.edge-item{border:1px solid var(--line);border-left:2px solid var(--warm);border-radius:12px;padding:14px 16px;background:var(--surface)}
+.edge-item b{display:block;font-size:14.5px;margin-bottom:3px}
+.edge-item span{font-size:13.8px;color:var(--muted);line-height:1.5}
+
+.stack{display:flex;flex-wrap:wrap;gap:8px}
+.tech{font-family:var(--mono);font-size:12.5px;padding:5px 10px;border-radius:8px;background:rgba(255,255,255,.045);border:1px solid var(--line);color:#c9d6ea}
+.tech.key{border-color:rgba(124,108,255,.4);background:rgba(124,108,255,.13);color:#dcd6ff}
+
+.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:820px){.result-grid{grid-template-columns:1fr}}
+.res{border:1px solid var(--line);border-radius:16px;padding:20px;background:linear-gradient(180deg,rgba(61,220,151,.07),transparent 70%),var(--surface)}
+.res b{display:block;font-size:26px;letter-spacing:-.02em;font-weight:650;color:#bff0d8;margin-bottom:4px}
+.res span{font-size:13.8px;color:var(--muted);line-height:1.45}
+
+.quote{border-left:2px solid rgba(34,211,238,.5);padding:4px 0 4px 16px;color:#cfe9f5;font-size:15.5px;max-width:64ch}
+
+.foot{padding:34px 0 60px;border-top:1px solid var(--line);margin-top:44px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--dim);font-size:13.5px}
+.foot a{color:var(--muted);text-decoration:none;border-bottom:1px dashed var(--line-2)}
+.foot a:hover{color:var(--text)}
+.note{font-size:13px;color:var(--dim);margin-top:12px}
+
+@media print{
+  body{background:#fff;color:#111}
+  body::before{display:none}
+  .nav{display:none}
+  .card,.box,.step-row,.res,.edge-item,.fact{background:#fff;border-color:#d5dae2}
+  .lede,.sub,.card p,.step-row p,.res span,.edge-item span{color:#333}
+  h1 em{-webkit-text-fill-color:#3b2fb5;color:#3b2fb5}
+  section{padding:22px 0;break-inside:avoid}
+}
+:focus-visible{outline:2px solid var(--accent-2);outline-offset:3px;border-radius:6px}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span>Данил · портфолио</a>
+    <a class="back" href="index.html">← Все кейсы</a>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="tags">
+      <span class="tag hi">Кейс 06</span>
+      <span class="tag">Приложение + железо</span>
+      <span class="tag">4 недели</span>
+      <span class="tag">Проектирование и разработка</span>
+    </div>
+    <h1>Пропуск в фитнес-клуб по QR: <em>турникет вместо ресепшена</em></h1>
+    <p class="lede">
+      Приложение с регистрацией и цифровым пропуском. Турникет сканирует QR и открывается сам,
+      если абонемент действует. Администратор на входе больше не нужен, а все посещения
+      остаются в системе.
+    </p>
+
+    <div class="facts">
+      <div class="fact"><b>1–2 сек</b><span>проход по QR</span></div>
+      <div class="fact"><b>0</b><span>ручных проверок на входе</span></div>
+      <div class="fact"><b>24/7</b><span>доступ без смены администратора</span></div>
+      <div class="fact"><b>100%</b><span>посещений в журнале</span></div>
+    </div>
+  </section>
+
+  <section id="problem">
+    <h2>С чего начинали</h2>
+    <p class="sub">До внедрения вход держался на человеке за стойкой, и это ограничивало клуб по трём фронтам.</p>
+    <div class="grid3">
+      <div class="card">
+        <span class="n">01</span>
+        <h3>Очередь в час пик</h3>
+        <p>Администратор вручную искал клиента в списке, проверял срок абонемента и только потом открывал проход. В вечерний пик у стойки собирались люди.</p>
+      </div>
+      <div class="card">
+        <span class="n">02</span>
+        <h3>Человеческий фактор</h3>
+        <p>Проверка «на глаз»: знакомого пропускали, чужой абонемент проходил, заморозку и лимит посещений никто не отслеживал.</p>
+      </div>
+      <div class="card">
+        <span class="n">03</span>
+        <h3>Нет данных</h3>
+        <p>Посещаемость не фиксировалась. Нельзя было понять загрузку по часам, долю непродливших и кто вообще перестал ходить.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <h2>Как это работает</h2>
+    <p class="sub">Пять шагов от установки приложения до открытого турникета. Ни одного человека в цепочке.</p>
+    <div class="flow">
+      <div class="step-row">
+        <span class="num">01</span>
+        <div>
+          <h4>Регистрация в приложении</h4>
+          <p>Клиент создаёт аккаунт по номеру телефона, заполняет профиль. Аккаунт привязывается к карточке клиента в клубе.</p>
+          <span class="who">Клиент</span>
+        </div>
+      </div>
+      <div class="step-row">
+        <span class="num">02</span>
+        <div>
+          <h4>Цифровой пропуск</h4>
+          <p>В приложении появляется QR-код. Он короткоживущий и обновляется сам, поэтому скриншот, отправленный другу, быстро становится бесполезным.</p>
+          <span class="who">Приложение</span>
+        </div>
+      </div>
+      <div class="step-row">
+        <span class="num">03</span>
+        <div>
+          <h4>Сканирование на турникете</h4>
+          <p>Сканер читает код и отправляет его на сервер. Сервер проверяет подпись и срок действия кода, а не только картинку.</p>
+          <span class="who">Турникет → API</span>
+        </div>
+      </div>
+      <div class="step-row">
+        <span class="num">04</span>
+        <div>
+          <h4>Проверка права прохода</h4>
+          <p>Проверяются абонемент, его срок, заморозка, лимит посещений и блокировки. Решение принимает сервер, а не приложение и не сканер.</p>
+          <span class="who">API</span>
+        </div>
+      </div>
+      <div class="step-row">
+        <span class="num">05</span>
+        <div>
+          <h4>Открытие и запись</h4>
+          <p>Турникет открывается, событие уходит в журнал: кто, когда, какое решение и почему. Отказ тоже пишется, с причиной.</p>
+          <span class="who">Турникет + БД</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="arch">
+    <h2>Архитектура</h2>
+    <p class="sub">Логика проверки живёт в одном месте. Приложение и турникет — только клиенты, им нельзя доверять решение.</p>
+    <div class="diagram">
+      <div class="box">
+        <b>Приложение</b>
+        <span>регистрация, профиль,<br>QR-пропуск, история</span>
+      </div>
+      <div class="arrow">→</div>
+      <div class="box core">
+        <b>API</b>
+        <span>проверка права,<br>выдача и подпись QR,<br>журнал событий</span>
+      </div>
+      <div class="arrow">→</div>
+      <div class="box">
+        <b>Турникет</b>
+        <span>сканер QR,<br>открытие, отказ</span>
+      </div>
+    </div>
+    <div class="diagram-notes">
+      <div class="mini"><b>База данных</b> — абонементы, платежи, заморозки, посещения, устройства</div>
+      <div class="mini"><b>Админка клуба</b> — продление, блокировка, ручной пропуск с комментарием</div>
+      <div class="mini"><b>Отчёты</b> — загрузка по часам, неявки, продления, отказы в доступе</div>
+    </div>
+  </section>
+
+  <section id="done">
+    <h2>Что сделал</h2>
+    <p class="sub">От схемы данных до инструкции, по которой клуб работает без меня.</p>
+    <div class="cols2">
+      <ul class="did">
+        <li>Спроектировал схему данных: клиент, абонемент, заморозка, посещение, устройство, событие прохода</li>
+        <li>Сделал регистрацию и вход по номеру телефона, привязку аккаунта к карточке клиента</li>
+        <li>Реализовал цифровой пропуск: подписанный QR с коротким сроком жизни и автообновлением</li>
+        <li>Написал серверную проверку права прохода: срок, заморозка, лимит, блокировка</li>
+        <li>Связал сканер турникета с API: запрос на проход, ответ «открыть» или «отказ с причиной»</li>
+        <li>Сделал журнал: каждое сканирование пишется, включая отказы</li>
+        <li>Добавил идемпотентность: повторное сканирование не открывает второй проход и не дублирует запись</li>
+        <li>Предусмотрел работу без сети: если API недоступен, турникет работает по локальному списку и отправляет события после восстановления</li>
+        <li>Собрал админку: продления, заморозки, ручной пропуск с обязательным комментарием</li>
+        <li>Сделал отчёты по загрузке зала и отказам в доступе</li>
+        <li>Написал инструкцию для клуба: что делать, если клиент не проходит, где смотреть журнал</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="edge">
+    <h2>Что могло сломаться и что с этим сделано</h2>
+    <p class="sub">Это половина работы. Пропускная система живёт не в идеальных условиях.</p>
+    <div class="edge">
+      <div class="edge-item"><b>Пропуск переслали другу</b><span>Код подписан и живёт ограниченное время, обновляется в приложении. Скриншот устаревает.</span></div>
+      <div class="edge-item"><b>Истёк абонемент</b><span>Отказ с понятной причиной на экране и подсказкой, куда обратиться. Событие в журнале.</span></div>
+      <div class="edge-item"><b>Пропал интернет</b><span>Локальный список действующих абонементов на турникете, события отправляются позже.</span></div>
+      <div class="edge-item"><b>Двойное сканирование</b><span>Проверка по идентификатору события: второй проход не открывается, запись не дублируется.</span></div>
+      <div class="edge-item"><b>Клиент забыл телефон</b><span>Ручной пропуск из админки с комментарием администратора. Всё видно в журнале.</span></div>
+      <div class="edge-item"><b>Спор у стойки</b><span>Журнал показывает время, устройство и решение сервера, а не «мне кажется, проходил».</span></div>
+    </div>
+  </section>
+
+  <section id="stack">
+    <h2>Стек</h2>
+    <p class="sub">Серверная логика на Java, клиент — веб-приложение, обмен через API.</p>
+    <div class="stack">
+      <span class="tech key">Java</span>
+      <span class="tech key">Spring</span>
+      <span class="tech key">JDBC</span>
+      <span class="tech key">SQL</span>
+      <span class="tech key">REST API</span>
+      <span class="tech">JavaScript</span>
+      <span class="tech">HTML/CSS</span>
+      <span class="tech">JSON</span>
+      <span class="tech">Git</span>
+      <span class="tech">QR</span>
+      <span class="tech">вебхуки</span>
+    </div>
+  </section>
+
+  <section id="result">
+    <h2>Результат</h2>
+    <p class="sub">Проход перестал быть услугой человека и стал функцией системы.</p>
+    <div class="result-grid">
+      <div class="res"><b>Без стойки</b><span>Проход не требует администратора: турникет открывается по QR с действующим абонементом.</span></div>
+      <div class="res"><b>Быстрее</b><span>Проверка занимает секунды и не зависит от того, отвлёкся ли человек на ресепшене.</span></div>
+      <div class="res"><b>Видно всё</b><span>Посещения, отказы и загрузка по часам в одном журнале вместо памяти администратора.</span></div>
+    </div>
+    <p class="quote">Отдельный эффект: клуб перестал спорить с клиентами о том, был проход или нет. Есть событие с временем и устройством — разговор заканчивается.</p>
+  </section>
+
+  <section id="about">
+    <h2>Что я делал в проекте</h2>
+    <p class="sub">Роль целиком: от разбора процесса до запуска и инструкции.</p>
+    <div class="grid3">
+      <div class="card"><h3>Анализ</h3><p>Разобрал, как проходит вход сейчас, где теряются данные и какие проверки обязательны. Собрал требования и схему данных.</p></div>
+      <div class="card"><h3>Разработка</h3><p>Серверная логика проверки права прохода, выдача и подпись QR, связка со сканером турникета, админка и отчёты.</p></div>
+      <div class="card"><h3>Запуск</h3><p>Настройка сценариев отказа, работа без сети, журнал и инструкция для сотрудников клуба.</p></div>
+    </div>
+  </section>
+
+  <div class="foot">
+    <span>Кейс 06 · фитнес-клуб · 2026</span>
+    <span><a href="index.html">Все кейсы</a> · <a href="mailto:mail@example.com">mail@example.com</a></span>
+  </div>
+
+</main>
+</body>
+</html>
