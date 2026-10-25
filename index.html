@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Данил — Java-разработчик и автоматизация процессов</title>
+<meta name="description" content="Резюме и портфолио: Java, SQL, интеграции, автоматизация процессов. Три кейса с экранами и описанием решений.">
+<style>
+:root{--bg:#f5f4f0;--ink:#141414;--muted:#5f5d57;--line:#d9d6cc;--acc:#c2410c}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 "Charter","Iowan Old Style",Georgia,serif}
+.page{max-width:960px;margin:0 auto;padding:56px 28px 72px}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:20px;border-bottom:2px solid var(--ink);padding-bottom:10px;font-family:"Arial Narrow",Arial,sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:clamp(34px,5.6vw,62px);line-height:1.02;letter-spacing:-.025em;margin:34px 0 0;font-weight:600}
+h1 em{font-style:normal;color:var(--acc)}
+.lede{font-size:19px;line-height:1.5;color:var(--muted);max-width:56ch;margin:16px 0 0}
+.contacts{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 0}
+.contacts a{font-family:"Arial Narrow",Arial,sans-serif;font-size:12px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:var(--ink);border:1px solid var(--ink);padding:8px 13px}
+.contacts a:hover{background:var(--ink);color:var(--bg)}
+h2{font-family:"Arial Narrow",Arial,sans-serif;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;margin:52px 0 14px;border-bottom:1px solid var(--ink);padding-bottom:6px}
+.job{display:grid;grid-template-columns:150px 1fr;gap:20px;padding:16px 0;border-bottom:1px solid var(--line)}
+@media(max-width:700px){.job{grid-template-columns:1fr;gap:6px}}
+.job .when{font-family:"Arial Narrow",Arial,sans-serif;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-top:4px}
+.job h3{margin:0 0 4px;font-size:19px;font-weight:600}
+.job p{margin:0;color:var(--muted);font-size:15.5px}
+.job ul{margin:8px 0 0;padding-left:18px;color:var(--muted);font-size:15.5px}
+.job li{margin-bottom:4px}
+.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:760px){.skills{grid-template-columns:1fr}}
+.skills div{border-top:2px solid var(--ink);padding-top:10px}
+.skills h4{margin:0 0 8px;font-family:"Arial Narrow",Arial,sans-serif;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.skills p{margin:0;font-size:15.5px}
+.cases{display:grid;gap:12px}
+.case{border:1px solid var(--line);padding:16px 18px;background:#fff;display:flex;justify-content:space-between;gap:16px;text-decoration:none;color:inherit}
+.case:hover{border-color:var(--ink)}
+.case b{display:block;font-size:18px;font-weight:600;margin-bottom:3px}
+.case span span{color:var(--muted);font-size:15px}
+.case i{font-family:"Arial Narrow",Arial,sans-serif;font-style:normal;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--acc);white-space:nowrap;align-self:center}
+.note{border-left:3px solid var(--acc);padding:2px 0 2px 16px;color:var(--muted);font-size:15.5px;margin-top:16px}
+.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:56px;padding-top:12px;border-top:2px solid var(--ink);font-family:"Arial Narrow",Arial,sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.foot a{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="top"><span>Четвертаков Данил</span><span>Удалённо · Россия</span></div>
+
+  <h1>Java, SQL и <em>автоматизация процессов</em></h1>
+  <p class="lede">Полтора года Java-разработки, затем автоматизация в бизнесе: производственный учёт на заводе и внедрение CRM на предприятии. Боты и AI-инструменты — часть работы, а не отдельная тема.</p>
+
+  <div class="contacts">
+    <a href="tel:+70000000000">+7 000 000-00-00</a>
+    <a href="mailto:mail@example.com">mail@example.com</a>
+    <a href="https://t.me/username">Telegram</a>
+    <a href="portfolio.html">Портфолио полностью</a>
+  </div>
+
+  <h2>Опыт</h2>
+
+  <div class="job">
+    <div class="when">1,5 года</div>
+    <div>
+      <h3>Java-разработчик</h3>
+      <p>Веб-приложения с авторизацией и разграничением доступа.</p>
+      <ul>
+        <li>Java Core: коллекции, исключения, работа с данными</li>
+        <li>Spring, JDBC, SQL-запросы писал сам, без ORM</li>
+        <li>Git: ветки, слияния, чтение чужого кода</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="job">
+    <div class="when">производство</div>
+    <div>
+      <h3>Автоматизация учёта на заводе</h3>
+      <p>Учёт в таблицах и на бумаге, сводка собиралась руками к концу недели.</p>
+      <ul>
+        <li>Разобрал, как данные ходят по участкам, нашёл потери и дубли</li>
+        <li>Собрал единый реестр: заявки, выпуск, отклонения</li>
+        <li>Сбор с участков через формы и бота, автоматические отчёты и уведомления</li>
+        <li>Сводка появляется в тот же день вместо конца недели</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="job">
+    <div class="when">предприятие</div>
+    <div>
+      <h3>Внедрение CRM</h3>
+      <p>Заявки жили в переписках и таблицах, статус сделки был неизвестен.</p>
+      <ul>
+        <li>Описал процесс, собрал воронку со стадиями и обязательными полями</li>
+        <li>Настроил роли и права, автоматические задачи и смену стадий</li>
+        <li>Перенёс базу из таблиц с проверкой дублей, подключил почту и мессенджер через API</li>
+        <li>Отчёты по конверсии и срокам, обучение сотрудников</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Навыки</h2>
+  <div class="skills">
+    <div><h4>Языки и данные</h4><p>Java, SQL, JavaScript, HTML/CSS, Git</p></div>
+    <div><h4>Интеграции</h4><p>REST API, вебхуки, JSON, Postman, Telegram Bot API, Cloudflare Workers</p></div>
+    <div><h4>Системы и процессы</h4><p>Битрикс24, amoCRM, Excel и Google Таблицы, Jira, описание процессов и регламенты</p></div>
+  </div>
+
+  <p class="note">Чего нет: продакшен-опыта с Docker, CI/CD и мультиагентными фреймворками. Python слабее Java. Английский — чтение документации и переписка.</p>
+
+  <h2>Кейсы</h2>
+  <div class="cases">
+    <a class="case" href="хардфит.html">
+      <span><b>Хардфит — пропуск в клуб по QR</b><span>Приложение, цифровой пропуск, турникет без администратора</span></span>
+      <i>Смотреть →</i>
+    </a>
+    <a class="case" href="бот-канал.html">
+      <span><b>Доступ — подписка в боте</b><span>Тарифы, оплата, автовыдача приглашения в закрытый канал</span></span>
+      <i>Смотреть →</i>
+    </a>
+    <a class="case" href="деталь.html">
+      <span><b>Деталь — магазин автозапчастей</b><span>Подбор по VIN, кроссы, остатки складов, корзина</span></span>
+      <i>Смотреть →</i>
+    </a>
+  </div>
+
+  <div class="foot"><span>chetvertak.site</span><span>2026</span></div>
+
+</div>
+</body>
+</html>
