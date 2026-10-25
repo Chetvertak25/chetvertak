@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Данил — портфолио: боты, автоматизация, веб</title>
+<meta name="description" content="Портфолио: Telegram-боты и подписки, интернет-магазин, AI-агент мониторинга, внедрение CRM, mini app. Что делал, стек, сроки.">
+<meta property="og:title" content="Данил — портфолио">
+<meta property="og:description" content="Боты, автоматизация, интеграции и веб. Пять проектов с описанием задачи, стека и результата.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b0f16'/%3E%3Cpath d='M28 70V30h16c11 0 18 7 18 17s-7 17-18 17h-6v6z' fill='%237c6cff'/%3E%3Ccircle cx='72' cy='34' r='6' fill='%2322d3ee'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#080b10;
+  --bg-soft:#0c111a;
+  --surface:#10161f;
+  --surface-2:#141c28;
+  --line:rgba(255,255,255,.075);
+  --line-strong:rgba(255,255,255,.14);
+  --text:#e8eef7;
+  --muted:#98a7bd;
+  --dim:#6f7f96;
+  --accent:#7c6cff;
+  --accent-2:#22d3ee;
+  --accent-3:#ffd166;
+  --ok:#3ddc97;
+  --radius:20px;
+  --radius-sm:12px;
+  --shadow:0 20px 60px -24px rgba(0,0,0,.8);
+  --font:"Inter","Segoe UI Variable Display","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono","Cascadia Code","SF Mono",Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--text);font-family:var(--font);
+  font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(900px 500px at 12% -8%, rgba(124,108,255,.20), transparent 60%),
+    radial-gradient(700px 460px at 88% 4%, rgba(34,211,238,.13), transparent 62%),
+    radial-gradient(800px 600px at 50% 108%, rgba(124,108,255,.10), transparent 65%);
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{width:min(1120px,calc(100% - 48px));margin:0 auto;position:relative;z-index:1}
+[id]{scroll-margin-top:88px}
+
+/* ---------- nav ---------- */
+.nav{
+  position:sticky;top:0;z-index:50;
+  backdrop-filter:blur(14px) saturate(140%);
+  background:rgba(8,11,16,.72);
+  border-bottom:1px solid var(--line);
+}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:24px;height:66px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:650;letter-spacing:-.01em;text-decoration:none}
+.brand-mark{
+  width:30px;height:30px;border-radius:9px;flex:none;
+  background:linear-gradient(140deg,var(--accent),#5b4bd6 55%,var(--accent-2));
+  box-shadow:0 6px 20px -8px rgba(124,108,255,.9);
+}
+.brand small{display:block;font-weight:450;font-size:12px;color:var(--dim);letter-spacing:.02em}
+.nav-links{display:flex;gap:6px;align-items:center}
+.nav-links a{
+  text-decoration:none;color:var(--muted);font-size:14.5px;padding:8px 12px;border-radius:9px;
+  transition:color .18s ease,background .18s ease;
+}
+.nav-links a:hover{color:var(--text);background:rgba(255,255,255,.05)}
+.btn{
+  display:inline-flex;align-items:center;gap:9px;text-decoration:none;
+  padding:11px 18px;border-radius:11px;font-size:14.5px;font-weight:560;
+  border:1px solid var(--line-strong);color:var(--text);background:rgba(255,255,255,.04);
+  transition:transform .18s ease,background .18s ease,border-color .18s ease;
+}
+.btn:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.22);transform:translateY(-1px)}
+.btn-primary{
+  background:linear-gradient(135deg,var(--accent),#6a58f0);border-color:transparent;
+  box-shadow:0 14px 34px -14px rgba(124,108,255,.85);
+}
+.btn-primary:hover{background:linear-gradient(135deg,#8b7cff,#7663f5)}
+@media (max-width:820px){.nav-links{display:none}}
+
+/* ---------- hero ---------- */
+.hero{padding:88px 0 56px}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;font-size:13px;color:var(--muted);
+  border:1px solid var(--line);border-radius:100px;padding:7px 14px;background:rgba(255,255,255,.03);
+}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px rgba(61,220,151,.16)}
+h1{
+  font-size:clamp(36px,5.4vw,62px);line-height:1.06;letter-spacing:-.035em;
+  margin:26px 0 0;font-weight:680;
+}
+h1 em{
+  font-style:normal;
+  background:linear-gradient(100deg,var(--accent) 10%,var(--accent-2) 70%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.lede{margin:22px 0 0;max-width:64ch;color:var(--muted);font-size:clamp(16px,1.4vw,19px)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.hero-stats{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;
+  margin-top:54px;border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;background:var(--line);
+}
+.stat{background:var(--bg-soft);padding:22px 24px}
+.stat b{display:block;font-size:26px;letter-spacing:-.02em;font-weight:650}
+.stat span{font-size:13.5px;color:var(--dim)}
+@media (max-width:700px){.hero-stats{grid-template-columns:1fr}}
+
+/* ---------- section ---------- */
+.section{padding:56px 0}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:34px;flex-wrap:wrap}
+.section-head h2{font-size:clamp(23px,2.6vw,31px);letter-spacing:-.025em;margin:0;font-weight:650}
+.section-head p{margin:8px 0 0;color:var(--dim);font-size:15px;max-width:56ch}
+.rule{height:1px;background:linear-gradient(90deg,var(--line-strong),transparent);margin:0 0 34px}
+
+/* ---------- cases ---------- */
+.cases{display:grid;gap:22px}
+.case{
+  position:relative;border:1px solid var(--line);border-radius:var(--radius);
+  background:linear-gradient(180deg,rgba(255,255,255,.028),rgba(255,255,255,0)) ,var(--surface);
+  padding:30px;overflow:hidden;box-shadow:var(--shadow);
+  transition:border-color .25s ease,transform .25s ease;
+}
+.case:hover{border-color:rgba(124,108,255,.42);transform:translateY(-2px)}
+.case::after{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:0;
+  background:radial-gradient(600px 240px at var(--mx,50%) var(--my,0%),rgba(124,108,255,.14),transparent 70%);
+  transition:opacity .3s ease;
+}
+.case:hover::after{opacity:1}
+.case-top{display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap}
+.case-num{
+  font-family:var(--mono);font-size:13px;color:var(--accent-2);
+  border:1px solid rgba(34,211,238,.3);background:rgba(34,211,238,.07);
+  border-radius:8px;padding:4px 9px;flex:none;margin-top:4px;
+}
+.case-title{flex:1 1 320px;min-width:0}
+.case-title h3{margin:0;font-size:22px;letter-spacing:-.02em;font-weight:640;line-height:1.25}
+.case-title p{margin:6px 0 0;color:var(--dim);font-size:14.5px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
+.chip{
+  font-size:12.5px;color:var(--muted);border:1px solid var(--line);
+  border-radius:100px;padding:3px 10px;background:rgba(255,255,255,.03);white-space:nowrap;
+}
+.chip-time{color:var(--accent-3);border-color:rgba(255,209,102,.28);background:rgba(255,209,102,.07)}
+.case-body{display:grid;grid-template-columns:1.15fr .85fr;gap:30px;margin-top:24px}
+@media (max-width:860px){.case-body{grid-template-columns:1fr;gap:22px}}
+.label{
+  font-size:11.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--dim);
+  font-weight:600;margin:0 0 10px;
+}
+.case-body p{margin:0;color:var(--muted);font-size:15.5px}
+ul.did{margin:0;padding:0;list-style:none;display:grid;gap:9px}
+ul.did li{position:relative;padding-left:22px;color:var(--muted);font-size:15.5px;line-height:1.55}
+ul.did li::before{
+  content:"";position:absolute;left:2px;top:.62em;width:7px;height:7px;border-radius:2px;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));transform:rotate(45deg);
+}
+.side{
+  display:grid;gap:18px;align-content:start;
+  border:1px solid var(--line);border-radius:15px;
+  padding:18px 20px;background:rgba(255,255,255,.022);
+}
+.stack{display:flex;flex-wrap:wrap;gap:7px}
+.tech{
+  font-family:var(--mono);font-size:12px;letter-spacing:-.01em;
+  padding:4px 9px;border-radius:7px;color:#c9d6ea;
+  background:rgba(255,255,255,.045);border:1px solid var(--line);
+}
+.result{
+  border-left:2px solid rgba(61,220,151,.55);padding:2px 0 2px 14px;
+  color:#cfe9dd;font-size:15px;
+}
+
+/* ---------- process ---------- */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+@media (max-width:860px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+.step{background:var(--bg-soft);padding:24px 22px}
+.step b{display:block;font-family:var(--mono);font-size:12px;color:var(--accent-2);margin-bottom:10px}
+.step h4{margin:0 0 8px;font-size:16.5px;font-weight:600}
+.step p{margin:0;color:var(--dim);font-size:14px;line-height:1.55}
+
+/* ---------- stack grid ---------- */
+.stack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media (max-width:860px){.stack-grid{grid-template-columns:1fr}}
+.stack-card{border:1px solid var(--line);border-radius:var(--radius-sm);padding:20px;background:var(--bg-soft)}
+.stack-card h4{margin:0 0 12px;font-size:14px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);font-weight:600}
+.pills{display:flex;flex-wrap:wrap;gap:7px}
+.pill{font-size:13.5px;padding:5px 11px;border-radius:8px;background:rgba(255,255,255,.045);border:1px solid var(--line);color:#cdd9ea}
+.pill.key{border-color:rgba(124,108,255,.4);background:rgba(124,108,255,.12);color:#dcd6ff}
+
+/* ---------- contact ---------- */
+.contact{
+  border:1px solid var(--line);border-radius:26px;padding:46px;
+  background:
+    radial-gradient(600px 300px at 8% 0%,rgba(124,108,255,.18),transparent 60%),
+    radial-gradient(500px 300px at 92% 100%,rgba(34,211,238,.12),transparent 60%),
+    var(--surface);
+  display:grid;grid-template-columns:1.2fr .8fr;gap:34px;align-items:center;
+}
+@media (max-width:820px){.contact{grid-template-columns:1fr;padding:32px}}
+.contact h2{margin:0 0 10px;font-size:clamp(24px,2.8vw,33px);letter-spacing:-.025em}
+.contact p{margin:0;color:var(--muted);max-width:48ch}
+.contact-list{display:grid;gap:10px}
+.contact-list a{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;text-decoration:none;
+  border:1px solid var(--line);border-radius:12px;padding:13px 16px;background:rgba(255,255,255,.03);
+  transition:background .18s ease,border-color .18s ease;
+}
+.contact-list a:hover{background:rgba(255,255,255,.07);border-color:var(--line-strong)}
+.contact-list span{color:var(--dim);font-size:13px}
+.contact-list b{font-weight:560;font-size:15px}
+
+footer{padding:40px 0 60px;color:var(--dim);font-size:13.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:56px}
+
+/* ---------- reveal ---------- */
+.reveal{transition:opacity .6s cubic-bezier(.2,.7,.3,1),transform .6s cubic-bezier(.2,.7,.3,1)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal,.js .reveal{opacity:1;transform:none;transition:none}
+  .case,.btn{transition:none}
+}
+:focus-visible{outline:2px solid var(--accent-2);outline-offset:3px;border-radius:6px}
+
+/* контент скрыт только если JS точно работает; иначе всё видно сразу */
+.js .reveal{opacity:0;transform:translateY(16px)}
+.js .reveal.in{opacity:1;transform:none}
+@media print{
+  .reveal,.js .reveal{opacity:1!important;transform:none!important}
+  .nav{position:static}
+  body::before{display:none}
+}
+</style>
+</head>
+<body>
+
+<script>document.documentElement.classList.add('js');</script>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>Данил<small>боты · автоматизация · веб</small></span>
+    </a>
+    <nav class="nav-links" aria-label="Разделы">
+      <a href="#cases">Кейсы</a>
+      <a href="#process">Как работаю</a>
+      <a href="#stack">Стек</a>
+      <a href="#contact">Связаться</a>
+    </nav>
+    <a class="btn btn-primary" href="#contact">Написать</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero wrap">
+    <span class="eyebrow"><span class="dot" aria-hidden="true"></span>Открыт к удалённой работе и проектам</span>
+    <h1>Собираю ботов, интеграции и&nbsp;веб-сервисы, <em>которые работают без ручного труда</em></h1>
+    <p class="lede">
+      Пять проектов ниже — от Telegram-бота с подписками до AI-агента, который каждое утро приносит
+      сводку по конкурентам. В каждом кейсе видно задачу, что именно я делал, на чём и за какой срок.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#cases">Смотреть кейсы</a>
+      <a class="btn" href="#contact">Обсудить задачу</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat"><b>5</b><span>проектов от задачи до запуска</span></div>
+      <div class="stat"><b>2–6 недель</b><span>типичный срок одного проекта</span></div>
+      <div class="stat"><b>полный цикл</b><span>анализ, разработка, запуск, поддержка</span></div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="cases">
+    <div class="section-head">
+      <div>
+        <h2>Кейсы</h2>
+        <p>Порядок — от простого к сложному. В каждом блоке: задача, действия, стек и результат.</p>
+      </div>
+    </div>
+    <div class="rule"></div>
+
+    <div class="cases">
+
+      <!-- 1 -->
+      <article class="case reveal">
+        <div class="case-top">
+          <span class="case-num">01</span>
+          <div class="case-title">
+            <h3>Telegram-бот с подписками, оплатой и рассылками</h3>
+            <p>Продажа доступа по подписке внутри мессенджера</p>
+          </div>
+          <div class="chips">
+            <span class="chip chip-time">3 недели</span>
+            <span class="chip">под ключ</span>
+          </div>
+        </div>
+        <div class="case-body">
+          <div>
+            <p class="label">Что сделал</p>
+            <ul class="did">
+              <li>Сценарии на кнопках и тексте: покупка, продление, отмена, восстановление доступа</li>
+              <li>Приём оплаты через API платёжного сервиса, проверка подписи на вебхуке, защита от повторной обработки платежа</li>
+              <li>Подписки с датой окончания и автопродлением, напоминание за три дня до конца</li>
+              <li>Сегментация базы и отложенные рассылки с ограничением частоты, чтобы не улетать в спам</li>
+              <li>Админ-панель: пользователи, платежи, ручная выдача и продление доступа</li>
+            </ul>
+          </div>
+          <div class="side">
+            <div>
+              <p class="label">Стек</p>
+              <div class="stack">
+                <span class="tech">Node.js</span><span class="tech">JavaScript</span>
+                <span class="tech">Telegram Bot API</span><span class="tech">REST API</span>
+                <span class="tech">webhook</span><span class="tech">SQL</span>
+                <span class="tech">Cloudflare Workers</span>
+              </div>
+            </div>
+            <div>
+              <p class="label">Результат</p>
+              <p class="result">Доступ выдаётся автоматически, ручных операций в продажах не осталось.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2 -->
+      <article class="case reveal">
+        <div class="case-top">
+          <span class="case-num">02</span>
+          <div class="case-title">
+            <h3>Интернет-магазин автозапчастей</h3>
+            <p>Каталог с подбором по автомобилю, заказы, оплата и статистика</p>
+          </div>
+          <div class="chips">
+            <span class="chip chip-time">6 недель</span>
+            <span class="chip">проектирование + разработка</span>
+          </div>
+        </div>
+        <div class="case-body">
+          <div>
+            <p class="label">Что сделал</p>
+            <ul class="did">
+              <li>Схема базы: товары, аналоги и кроссы, применимость по марке и модели, остатки, заказы, платежи</li>
+              <li>Поиск и фильтры по артикулу и автомобилю, пагинация, кэш частых запросов</li>
+              <li>Корзина, оформление заказа, оплата, статусы и уведомления покупателю</li>
+              <li>Админ-панель: заказы, остатки, отчёты по продажам и конверсии, выгрузка в таблицы</li>
+              <li>Роли и права: менеджер видит заказы, но не меняет цены и остатки</li>
+            </ul>
+          </div>
+          <div class="side">
+            <div>
+              <p class="label">Стек</p>
+              <div class="stack">
+                <span class="tech">Java</span><span class="tech">Spring</span>
+                <span class="tech">JDBC</span><span class="tech">MySQL</span>
+                <span class="tech">HTML/CSS/JS</span><span class="tech">REST API</span>
+              </div>
+            </div>
+            <div>
+              <p class="label">Результат</p>
+              <p class="result">Заказы и отчётность в одной системе, ручные таблицы больше не нужны.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 -->
+      <article class="case reveal">
+        <div class="case-top">
+          <span class="case-num">03</span>
+          <div class="case-title">
+            <h3>AI-агент для мониторинга рынка конкурентов</h3>
+            <p>Ежедневная сводка изменений цен и ассортимента</p>
+          </div>
+          <div class="chips">
+            <span class="chip chip-time">2 недели</span>
+            <span class="chip">разработка</span>
+          </div>
+        </div>
+        <div class="case-body">
+          <div>
+            <p class="label">Что сделал</p>
+            <ul class="did">
+              <li>Сбор данных через API и страницы, нормализация названий и характеристик</li>
+              <li>История цен и остатков, сравнение с предыдущим срезом, поиск отклонений</li>
+              <li>LLM-классификация ассортимента и короткая сводка изменений обычным языком</li>
+              <li>Алерты в Telegram по порогам: снижение цены, новый товар, уход позиции из продажи</li>
+              <li>Недельный отчёт и выгрузка в таблицу для дальнейшего разбора</li>
+            </ul>
+          </div>
+          <div class="side">
+            <div>
+              <p class="label">Стек</p>
+              <div class="stack">
+                <span class="tech">JavaScript</span><span class="tech">Node.js</span>
+                <span class="tech">REST API</span><span class="tech">JSON</span>
+                <span class="tech">SQL</span><span class="tech">LLM API</span>
+                <span class="tech">Telegram Bot API</span><span class="tech">cron</span>
+              </div>
+            </div>
+            <div>
+              <p class="label">Результат</p>
+              <p class="result">Сводка приходит сама утром, ручной обход сайтов конкурентов убран.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4 -->
+      <article class="case reveal">
+        <div class="case-top">
+          <span class="case-num">04</span>
+          <div class="case-title">
+            <h3>CRM: внедрение и автоматизация процессов</h3>
+            <p>Замена таблиц и переписки одной воронкой с автоматическими задачами</p>
+          </div>
+          <div class="chips">
+            <span class="chip chip-time">5 недель</span>
+            <span class="chip">анализ + внедрение</span>
+          </div>
+        </div>
+        <div class="case-body">
+          <div>
+            <p class="label">Что сделал</p>
+            <ul class="did">
+              <li>Описание процессов, схема сущностей и справочников под реальную работу отдела</li>
+              <li>Перенос данных из Excel с проверкой дублей и восстановлением связей</li>
+              <li>Воронки, автоматические стадии, роботы и напоминания вместо ручных контрольных звонков</li>
+              <li>Интеграции: почта, мессенджер, вебхуки и обмен данными с учётной системой</li>
+              <li>Роли и права, регламенты и обучение сотрудников, отчёты по конверсии и срокам</li>
+            </ul>
+          </div>
+          <div class="side">
+            <div>
+              <p class="label">Стек</p>
+              <div class="stack">
+                <span class="tech">Битрикс24</span><span class="tech">REST API</span>
+                <span class="tech">webhook</span><span class="tech">SQL</span>
+                <span class="tech">Excel / Google Sheets</span><span class="tech">JavaScript</span>
+              </div>
+            </div>
+            <div>
+              <p class="label">Результат</p>
+              <p class="result">Задачи не теряются, статус сделки виден без звонка менеджеру.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5 -->
+      <article class="case reveal">
+        <div class="case-top">
+          <span class="case-num">05</span>
+          <div class="case-title">
+            <h3>Telegram Mini App: каталог и оплата</h3>
+            <p>Покупка внутри мессенджера, без перехода на сайт</p>
+          </div>
+          <div class="chips">
+            <span class="chip chip-time">3 недели</span>
+            <span class="chip">разработка</span>
+          </div>
+        </div>
+        <div class="case-body">
+          <div>
+            <p class="label">Что сделал</p>
+            <ul class="did">
+              <li>Mini App на HTML/CSS/JS с авторизацией по данным мессенджера</li>
+              <li>Каталог, карточка товара и корзина, синхронизация с ботом</li>
+              <li>Оплата и статусы заказа прямо в чате</li>
+              <li>Админка: товары, заказы, базовая статистика продаж</li>
+            </ul>
+          </div>
+          <div class="side">
+            <div>
+              <p class="label">Стек</p>
+              <div class="stack">
+                <span class="tech">Telegram WebApp API</span><span class="tech">JavaScript</span>
+                <span class="tech">HTML/CSS</span><span class="tech">Node.js</span>
+                <span class="tech">REST API</span><span class="tech">SQL</span>
+              </div>
+            </div>
+            <div>
+              <p class="label">Результат</p>
+              <p class="result">Покупка за три экрана, приложение не нужно устанавливать.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6 -->
+      <article class="case reveal">
+        <div class="case-top">
+          <span class="case-num">06</span>
+          <div class="case-title">
+            <h3>Пропуск в фитнес-клуб по QR: турникет вместо ресепшена</h3>
+            <p>Приложение с регистрацией, цифровой пропуск и автоматический доступ по скану</p>
+          </div>
+          <div class="chips">
+            <span class="chip chip-time">4 недели</span>
+            <span class="chip">проектирование + разработка</span>
+          </div>
+        </div>
+        <div class="case-body">
+          <div>
+            <p class="label">Что сделал</p>
+            <ul class="did">
+              <li>Регистрация и вход по номеру телефона, привязка аккаунта к карточке клиента</li>
+              <li>Цифровой пропуск: подписанный QR с коротким сроком жизни и автообновлением</li>
+              <li>Серверная проверка права прохода: срок абонемента, заморозка, лимит, блокировка</li>
+              <li>Связка со сканером турникета: запрос на проход и ответ «открыть» или «отказ с причиной»</li>
+              <li>Журнал событий и идемпотентность, работа турникета без сети по локальному списку</li>
+              <li>Админка клуба: продления, заморозки, ручной пропуск, отчёты по загрузке зала</li>
+            </ul>
+          </div>
+          <div class="side">
+            <div>
+              <p class="label">Стек</p>
+              <div class="stack">
+                <span class="tech">Java</span><span class="tech">Spring</span>
+                <span class="tech">JDBC</span><span class="tech">SQL</span>
+                <span class="tech">REST API</span><span class="tech">JavaScript</span>
+                <span class="tech">QR</span>
+              </div>
+            </div>
+            <div>
+              <p class="label">Результат</p>
+              <p class="result">Проход по QR без администратора на входе, все посещения и отказы в журнале.</p>
+            </div>
+            <div>
+              <p class="label">Подробно</p>
+              <p class="result"><a href="Кейс_Фитнес_клуб.html" style="color:#9fe8ff;text-decoration:none;border-bottom:1px dashed rgba(159,232,255,.5)">Открыть кейс целиком →</a></p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="section wrap" id="process">
+    <div class="section-head">
+      <div>
+        <h2>Как я работаю</h2>
+        <p>Одинаковый порядок на любом проекте: сначала понять задачу, потом писать код.</p>
+      </div>
+    </div>
+    <div class="rule"></div>
+    <div class="steps">
+      <div class="step"><b>01 / РАЗБОР</b><h4>Задача и ограничения</h4><p>Что болит сейчас, кто этим пользуется, что нельзя сломать. На выходе — список требований.</p></div>
+      <div class="step"><b>02 / ПРОТОТИП</b><h4>Каркас и схема данных</h4><p>Схема базы, сценарии, интерфейсы. Согласуем до того, как начнётся разработка.</p></div>
+      <div class="step"><b>03 / ЗАПУСК</b><h4>Рабочая версия</h4><p>Разработка короткими шагами, проверка на реальных данных, исправления по ходу.</p></div>
+      <div class="step"><b>04 / ПОДДЕРЖКА</b><h4>Документация и передача</h4><p>Инструкция, логи, разбор ошибок. После сдачи проект можно поддерживать без меня.</p></div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="stack">
+    <div class="section-head">
+      <div>
+        <h2>Стек</h2>
+        <p>Что использую в работе. Синие — то, на чём делаю основную часть задач.</p>
+      </div>
+    </div>
+    <div class="rule"></div>
+    <div class="stack-grid">
+      <div class="stack-card">
+        <h4>Языки и разметка</h4>
+        <div class="pills">
+          <span class="pill key">JavaScript</span><span class="pill key">Java</span>
+          <span class="pill key">SQL</span><span class="pill key">HTML/CSS</span>
+          <span class="pill">Node.js</span><span class="pill">Python (скрипты)</span>
+        </div>
+      </div>
+      <div class="stack-card">
+        <h4>Интеграции и API</h4>
+        <div class="pills">
+          <span class="pill key">REST API</span><span class="pill key">webhook</span>
+          <span class="pill key">JSON</span><span class="pill">Telegram Bot API</span>
+          <span class="pill">Telegram WebApp</span><span class="pill">Postman</span>
+          <span class="pill">LLM API</span>
+        </div>
+      </div>
+      <div class="stack-card">
+        <h4>Данные и системы</h4>
+        <div class="pills">
+          <span class="pill key">MySQL</span><span class="pill key">Excel / Google Sheets</span>
+          <span class="pill">Битрикс24</span><span class="pill">amoCRM</span>
+          <span class="pill">Git</span><span class="pill">Cloudflare Workers</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="contact">
+    <div class="contact reveal">
+      <div>
+        <h2>Обсудим вашу задачу</h2>
+        <p>
+          Расскажите, что нужно автоматизировать или собрать. Отвечу, реально ли это в ваши сроки,
+          что понадобится с вашей стороны и сколько времени займёт.
+        </p>
+      </div>
+      <div class="contact-list">
+        <a href="https://t.me/username"><span>Telegram</span><b>@username</b></a>
+        <a href="mailto:mail@example.com"><span>Почта</span><b>mail@example.com</b></a>
+        <a href="tel:+70000000000"><span>Телефон</span><b>+7 000 000-00-00</b></a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="wrap">
+    <span>© 2026 Данил. Портфолио проектов.</span>
+    <span>Сделано вручную: HTML, CSS, JavaScript без фреймворков.</span>
+  </footer>
+
+</main>
+
+<script>
+// появление блоков при прокрутке
+(function () {
+  var items = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  function showAll() { items.forEach(function (el) { el.classList.add('in'); }); }
+
+  if (!('IntersectionObserver' in window)) { showAll(); return; }
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  items.forEach(function (el) { io.observe(el); });
+
+  // страховка: через 1.5 с показываем всё, что ещё не открылось
+  setTimeout(showAll, 1500);
+  // и при печати или сохранении в PDF
+  window.addEventListener('beforeprint', showAll);
+})();
+
+// мягкий блик, следующий за курсором, на карточках кейсов
+(function () {
+  document.querySelectorAll('.case').forEach(function (card) {
+    card.addEventListener('pointermove', function (ev) {
+      var r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (ev.clientX - r.left) + 'px');
+      card.style.setProperty('--my', (ev.clientY - r.top) + 'px');
+    });
+  });
+})();
+</script>
+</body>
+</html>
