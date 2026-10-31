@@ -56,6 +56,16 @@ h2{margin:0 0 14px;font-size:15px;letter-spacing:.08em;text-transform:uppercase;
 .sg h3{margin:0 0 3px;font-size:14px;font-weight:700;color:#1f2937}
 .sg p{margin:0;font-size:14.5px;line-height:1.5;color:#4b5563}
 /* опыт */
+.part{margin-top:12px}
+.part-h{display:block;font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:#6b7280;font-weight:700;margin-bottom:5px}
+.part ul{margin:0;padding:0;list-style:none;display:grid;gap:4px}
+.part li{position:relative;padding-left:20px;font-size:15px;color:#2f3540}
+.part li::before{content:"";position:absolute;left:4px;top:.62em;width:6px;height:6px;border-radius:50%;background:#c3cbd6}
+.part.results{margin-top:14px;padding:12px 14px;background:#f4f9f4;border:1px solid #d9ecda;border-radius:10px}
+.part.results .part-h{color:#2f7d43}
+.part.results li{color:#1f4d2c}
+.part.results li::before{background:#62b37a}
+/* опыт */
 .job{padding:18px 0;border-bottom:1px solid var(--line)}
 .job:last-child{border-bottom:0}
 @media(max-width:640px){.job{padding:14px 0}}
@@ -142,50 +152,49 @@ a{color:var(--accent)}
     <main>
       <section class="card block" style="margin-bottom:20px;padding-bottom:0">
         <h2>Опыт работы · 3 года 7 месяцев</h2>
+        
         <article class="job">
           <div class="job-top">
             <h3>Самозанятость · Разработка Telegram-ботов и автоматизация</h3>
             <span class="when">Сентябрь 2025 — сейчас · 1 год 2 месяца</span>
           </div>
           <p class="sub">Разрабатывал автоматизированные решения под задачи бизнеса и специалистов</p>
-          <ul>
-            <li>Telegram-боты на Bot API: архитектура, логика взаимодействия, сценарии</li>
-            <li>Интеграции сторонних сервисов через REST API, настройка вебхуков</li>
-            <li>Проверка подписок, управление доступом, автоматическая выдача контента</li>
-            <li>Работа с данными пользователей и состояниями сценариев</li>
-            <li>Отладка, тестирование, развёртывание и сопровождение приложений</li>
-          </ul>
+          <div class="part"><span class="part-h">Обязанности</span>
+            <ul><li>Проектировал архитектуру и сценарии взаимодействия с пользователем</li><li>Разрабатывал ботов на Telegram Bot API</li><li>Интегрировал сторонние сервисы через REST API</li><li>Настраивал вебхуки для обработки входящих событий</li><li>Реализовывал проверку подписок и управление доступом</li><li>Автоматизировал выдачу контента по подписке</li><li>Отлаживал, тестировал и сопровождал приложения после запуска</li></ul>
+          </div>
+          <div class="part results"><span class="part-h">Результаты</span>
+            <ul><li>Автоматизировал выдачу доступа: подписки и приглашения оформляются без участия человека</li><li>Сократил ручные операции по подпискам — заявки больше не обрабатываются вручную</li></ul>
+          </div>
           <p class="tech"><b>Технологии:</b> Telegram Bot API, JavaScript, Cloudflare Workers, REST API, Webhooks, Git</p>
         </article>
-
         <article class="job">
           <div class="job-top">
             <h3>Healthcare стартап · Java Backend Developer</h3>
             <span class="when">Декабрь 2023 — Апрель 2025 · 1 год 5 месяцев</span>
           </div>
           <p class="sub">Приложение для отслеживания ментального и физического здоровья сотрудников · медицина, клинические исследования</p>
-          <ul>
-            <li>Разработка бизнес-логики сервисного уровня</li>
-            <li>Сервис почтовой рассылки: время и сложность операции уменьшились в 2 раза</li>
-            <li>Покрытие кода тестами на JUnit и Mockito</li>
-            <li>Работа с другими командами проекта</li>
-          </ul>
+          <div class="part"><span class="part-h">Обязанности</span>
+            <ul><li>Разрабатывал бизнес-логику сервисного уровня</li><li>Участвовал в разработке и внедрении сервиса почтовой рассылки</li><li>Покрывал написанный код тестами на JUnit и Mockito</li><li>Взаимодействовал с другими командами проекта</li></ul>
+          </div>
+          <div class="part results"><span class="part-h">Результаты</span>
+            <ul><li>Ускорил почтовую рассылку: время и сложность операции уменьшились в 2 раза</li><li>Встроил тесты в процесс разработки — ошибки отлавливаются до релиза</li></ul>
+          </div>
           <p class="tech"><b>Технологии:</b> Java 17, Spring Boot, Spring WebFlux, Spring Data, PostgreSQL, Maven, JUnit 5, Mockito, Docker, Kubernetes, TypeScript, React.js, Google Cloud Platform</p>
         </article>
-
         <article class="job">
           <div class="job-top">
             <h3>Самозанятость · Таргетолог, специалист по рекламе Meta Ads</h3>
             <span class="when">Январь 2020 — Декабрь 2020 · 1 год</span>
           </div>
-          <ul>
-            <li>Настройка и сопровождение кампаний в Facebook Ads Manager</li>
-            <li>Работа с рекламными кабинетами, мониторинг и анализ эффективности</li>
-            <li>Диагностика проблем с запуском и отклонением объявлений</li>
-          </ul>
+          
+          <div class="part"><span class="part-h">Обязанности</span>
+            <ul><li>Настраивал и сопровождал рекламные кампании в Facebook Ads Manager</li><li>Вёл рекламные кабинеты и аккаунты Meta</li><li>Мониторил показатели и анализировал эффективность размещений</li><li>Диагностировал проблемы с запуском кампаний</li><li>Разбирал причины отклонения объявлений и ограничений аккаунтов</li></ul>
+          </div>
+          <div class="part results"><span class="part-h">Результаты</span>
+            <ul><li>Сократил количество отклонённых объявлений за счёт проверки требований до запуска</li></ul>
+          </div>
           <p class="tech"><b>Технологии:</b> Meta Ads, Facebook Ads Manager</p>
-        </article>
-      </section>
+        </article></section>
 
       <section class="card block">
         <h2>Кейсы</h2>
